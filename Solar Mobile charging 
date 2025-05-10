@@ -1,0 +1,24 @@
+const int batteryPin = A0; // Analog pin to read battery voltage
+float voltage = 0.0;
+
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+int raw = analogRead(batteryPin);
+voltage = raw * (5.0 / 1023.0) * 2; // For voltage divider (10k:10k)
+
+Serial.print("Battery Voltage: ");
+Serial.print(voltage);
+Serial.println(" V");
+
+if (voltage < 3.5)
+Serial.println("Status: Charging Started");
+else if (voltage >= 4.2)
+Serial.println("Status: Battery Full");
+else
+Serial.println("Status: Charging...");
+
+delay(2000);
+}
